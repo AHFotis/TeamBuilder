@@ -10,6 +10,151 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+const employeeArray = [];
+
+const managerQs = [
+    {
+        type: 'input',
+        name: 'name',
+        message: "What is your manager's name?",
+    },
+    {
+        type: 'input',
+        name: 'id',
+        message: 'What is their employee ID?',
+    },
+    {
+        type: 'input',
+        name: 'email',
+        message: 'What is their e-mail address?',
+        validate: function (email) {
+            // Regex mail check (return true if valid mail)
+            return /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+([^<>()\.,;:\s@\"]{2,}|[\d\.]+))$/.test(email);
+        }
+    },
+    {
+        type: 'input',
+        name: "officeNumber",
+        message: 'What is their office number?'
+    },
+]
+
+
+const newRole = [
+    {
+        type: "list",
+        name: "role",
+        message: "What is the role of the next employee?",
+        choices: ["Engineer", "Intern"],
+    },
+]
+
+const engineerQs = [
+    {
+        type: 'input',
+        name: 'name',
+        message: "What is this engineer's name?",
+    },
+    {
+        type: 'input',
+        name: 'id',
+        message: 'What is their employee ID?',
+    },
+    {
+        type: 'input',
+        name: 'email',
+        message: 'What is their e-mail address?',
+        validate: function (email) {
+            // Regex mail check (return true if valid mail)
+            return /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+([^<>()\.,;:\s@\"]{2,}|[\d\.]+))$/.test(email);
+        }
+    },
+    {
+        type: 'input',
+        name: "github",
+        message: 'What is their GitHub username?'
+    }
+    
+]
+
+const internQs = [
+    {
+        type: 'input',
+        name: 'name',
+        message: "What is this intern's name?",
+    },
+    {
+        type: 'input',
+        name: 'id',
+        message: 'What is their employee ID?',
+    },
+    {
+        type: 'input',
+        name: 'email',
+        message: 'What is their e-mail address?',
+        validate: function (email) {
+            // Regex mail check (return true if valid mail)
+            return /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+([^<>()\.,;:\s@\"]{2,}|[\d\.]+))$/.test(email);
+        }
+    },
+    {
+        type: 'input',
+        name: "school",
+        message: 'What school is this intern attending?'
+    }
+    
+]
+
+const addEmployee = () => {
+    inquirer.prompt([
+        {
+        type: 'confirm',
+        name: "continue",
+        message: 'Would you like to add another employee?'
+        }
+    ]).then(function (data) {
+
+        if (data.continue == true) {
+            questions(engineerQs, internQs);
+        } else {
+            console.log(employeeArray);
+        }
+    })
+}
+
+const questions = (qE, qI) => {
+    inquirer.prompt(newRole)
+        .then((response) =>{
+            if (response.role === "Engineer") {
+                inquirer.prompt(qE)
+                    .then((answers) => {
+                        const engineer = new Engineer(answers.name, answers.id, answers.email, answers.github)
+                        employeeArray.push(engineer)
+                        addEmployee();  
+                    })
+            } else if (response.role === "Intern") {
+                inquirer.prompt(qI)
+                .then((answers) => {
+                    const intern = new Intern(answers.name, answers.id, answers.email, answers.school)
+                    employeeArray.push(intern)
+                    addEmployee();  
+                })
+            }
+        })
+
+}
+
+const init = (qM) => {
+    console.log("Let's get started with building your team! We'll start with your manager.")
+    inquirer.prompt(qM)
+        .then((answers) => {
+            const manager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber)
+            employeeArray.push(manager)
+            addEmployee()
+        })
+    }
+
+init(managerQs);
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
