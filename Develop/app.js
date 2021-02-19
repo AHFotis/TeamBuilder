@@ -120,8 +120,8 @@ const addEmployee = () => {
             console.log(employeeArray)
             const html = render(employeeArray);
 
-            fs.writeFile("./output/team.html", html, (err) =>
-            err ? console.log(err) : console.log('Generating README...'))
+            fs.writeFile(outputPath, html, (err) =>
+            err ? console.log(err) : console.log('Success! Building your team...'))
         }
     })
 }
