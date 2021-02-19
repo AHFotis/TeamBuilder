@@ -117,7 +117,11 @@ const addEmployee = () => {
         if (data.continue == true) {
             questions(engineerQs, internQs);
         } else {
-            console.log(employeeArray);
+            console.log(employeeArray)
+            const html = render(employeeArray);
+
+            fs.writeFile("./output/team.html", html, (err) =>
+            err ? console.log(err) : console.log('Generating README...'))
         }
     })
 }
@@ -155,6 +159,7 @@ const init = (qM) => {
     }
 
 init(managerQs);
+
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
