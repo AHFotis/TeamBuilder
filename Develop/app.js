@@ -9,6 +9,7 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
+const { clear } = require("console");
 
 const employeeArray = [];
 
@@ -28,8 +29,11 @@ const managerQs = [
         name: 'email',
         message: 'What is their e-mail address?',
         validate: function (email) {
-            // Regex mail check (return true if valid mail)
-            return /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+([^<>()\.,;:\s@\"]{2,}|[\d\.]+))$/.test(email);
+            if(email.includes("@" && ".")) {
+                return true;
+            }else {
+                return "PLEASE TYPE IN A VALID E-MAIL ADDRESS."
+            }
         }
     },
     {
@@ -65,8 +69,12 @@ const engineerQs = [
         name: 'email',
         message: 'What is their e-mail address?',
         validate: function (email) {
-            // Regex mail check (return true if valid mail)
-            return /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+([^<>()\.,;:\s@\"]{2,}|[\d\.]+))$/.test(email);
+            if(email.includes("@" && ".")) {
+                return true;
+            }else {
+                console.log(" PLEASE TYPE IN A VALID E-MAIL ADDRESS.")
+                return false;
+            }
         }
     },
     {
@@ -93,8 +101,12 @@ const internQs = [
         name: 'email',
         message: 'What is their e-mail address?',
         validate: function (email) {
-            // Regex mail check (return true if valid mail)
-            return /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+([^<>()\.,;:\s@\"]{2,}|[\d\.]+))$/.test(email);
+            if(email.includes("@" && ".")) {
+                return true;
+            }else {
+                console.log(" PLEASE TYPE IN A VALID E-MAIL ADDRESS.")
+                return false;
+            }
         }
     },
     {
@@ -117,7 +129,6 @@ const addEmployee = () => {
         if (data.continue == true) {
             questions(engineerQs, internQs);
         } else {
-            console.log(employeeArray)
             const html = render(employeeArray);
 
             fs.writeFile(outputPath, html, (err) =>
