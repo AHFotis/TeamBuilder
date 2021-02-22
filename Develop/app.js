@@ -49,7 +49,7 @@ const newRole = [
         type: "list",
         name: "role",
         message: "What is the role of the next employee?",
-        choices: ["Engineer", "Intern"],
+        choices: ["Engineer", "Intern", "Manager"],
     },
 ]
 
@@ -125,7 +125,7 @@ const addEmployee = () => {
     ]).then(function (data) {
 
         if (data.continue == true) {
-            questions(engineerQs, internQs);
+            questions(engineerQs, internQs, managerQs);
         } else {
             const html = render(employeeArray);
 
@@ -135,7 +135,7 @@ const addEmployee = () => {
     })
 }
 
-const questions = (qE, qI) => {
+const questions = (qE, qI, qM) => {
     inquirer.prompt(newRole)
         .then((response) =>{
             if (response.role === "Engineer") {
@@ -150,6 +150,13 @@ const questions = (qE, qI) => {
                 .then((answers) => {
                     const intern = new Intern(answers.name, answers.id, answers.email, answers.school)
                     employeeArray.push(intern)
+                    addEmployee();  
+                })
+            } else if (response.role === "Manager") {
+                inquirer.prompt(qM)
+                .then((answers) => {
+                    const manager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber)
+                    employeeArray.push(manager)
                     addEmployee();  
                 })
             }
