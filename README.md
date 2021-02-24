@@ -24,10 +24,10 @@ A command-line application that allows the user to follow a series of prompts to
 
   Click [here](https://drive.google.com/file/d/1SV9HBSmVx6q58Hfse78RVVTHPHBE1uwb/view) to view a walkthrough of the application.
   
-  Sample of a generated README
+  Sample of a generated team.
  ![SampleREADME](Reference/sampleREADME.gif)
 
-  Screenshot of a completed use.
+  Screenshot of a completed use in terminal.
   ![Terminal Shot](Reference/Terminal.png)
 
 
