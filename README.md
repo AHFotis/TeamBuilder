@@ -22,7 +22,7 @@ A command-line application that allows the user to follow a series of prompts to
   
 ## Reference
 
-  Click [here](https://drive.google.com/file/d/1SV9HBSmVx6q58Hfse78RVVTHPHBE1uwb/view) to view a walkthrough of the application.
+  Click [here](https://drive.google.com/file/d/1t6FIN147BdtLywwt2bMgGLkMjmL9keft/view) to view a walkthrough of the application.
   
   Sample of a generated team.
  ![SampleTeam](Reference/Images/screenShot.png)
